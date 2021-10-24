@@ -9,6 +9,7 @@ class Solution:
             for j, y in enumerate(self.input[i-n:i]):
                 if self.input[i]-y in self.input[j+1:i]:
                     _in = True
+                    
             if not _in: return self.input[i]
         return -1
 
