@@ -6,12 +6,12 @@ class Solution:
     def solve(self, n:int = 25):
         for i in range(n, len(self.input)):
             _in = False
-            for j, y in enumerate(self.input[i-n:i]):
-                if self.input[i]-y in self.input[j+1:i]:
+            for j in range(i-n, i):
+                if self.input[i]-self.input[j] in self.input[j+1:i]:
                     _in = True
                     
             if not _in: return self.input[i]
         return -1
 
 if __name__=='__main__':
-	print(Solution("day9/p1/input.txt").solve(5))
+	print(Solution("day9/p1/input.txt").solve())
