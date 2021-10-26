@@ -7,12 +7,9 @@ class Solution:
         total = {0:1}
         for line in sorted(self.input):
             total[line] = 0
-            if line - 1 in total:
-                total[line]+=total[line-1]
-            if line - 2 in total:
-                total[line]+=total[line-2]
-            if line - 3 in total:
-                total[line]+=total[line-3]
+            for i in range(1, 4):
+                if line - i in total:
+                    total[line]+=total[line-i]
 
         # print(total)
 
