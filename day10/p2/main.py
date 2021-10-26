@@ -4,16 +4,16 @@ class Solution:
             self.input = [int(x) for x in f.read().split('\n')[:-1]]
 
     def solve(self):
-        total = {0:1}
+        mem = {0:1}
         for line in sorted(self.input):
-            total[line] = 0
+            mem[line] = 0
             for i in range(1, 4):
-                if line - i in total:
-                    total[line]+=total[line-i]
+                if line - i in mem:
+                    mem[line]+=mem[line-i]
 
-        # print(total)
+        # print(mem)
 
-        return total[max(self.input)]
+        return mem[max(self.input)]
 
         
 
