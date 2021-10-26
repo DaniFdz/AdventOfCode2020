@@ -13,10 +13,9 @@ class Solution:
                 [x-1,   y],           [x+1,   y],
                 [x-1, y+1], [x, y+1], [x+1, y+1]
             ]:
-                try:
-                    neightbours+= 1 if board[y_][x_] == "#" else 0
-                except IndexError:
-                    pass
+                if 0 <= x_ < len(board[0]) and \
+                    0 <= y_ < len(board):
+                    neightbours += 1 if board[y_][x_] == "#" else 0
 
             return neightbours
 
@@ -34,27 +33,28 @@ class Solution:
 
                 else: board[y][x] = self.input[y][x]
                 
-    
         return board
 
     def solve(self) -> int:
+        def pS(b):
+            for row in b:
+                for col in row:
+                    print(col, end="")
+                print()
+            print()
+
         x = self.__nextState()
         while x != self.input:
-            # print(*self.input, sep = '\n', end='\n\n')
+            # pS(self.input)
             self.input = x
             x = self.__nextState()
-        print(*self.input, sep = '\n', end='\n\n')
+        # pS(self.input)
             
         tot = 0
         for row in self.input:
             tot+=row.count("#")
 
         return tot
-
-        
-
-            
-        
 
 if __name__=='__main__':
 	print(Solution("day11/p1/input.txt").solve())
