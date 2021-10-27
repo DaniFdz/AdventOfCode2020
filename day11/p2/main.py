@@ -34,7 +34,7 @@ class Solution:
             for x in range(len(board[y])):
                 cN = countNeightbours(self.input, x, y)
 
-                if self.input[y][x] == "#" and cN >= 4:
+                if self.input[y][x] == "#" and cN >= 5:
                     board[y][x] = "L"
 
                 elif self.input[y][x] == "L" and cN == 0:
@@ -54,10 +54,10 @@ class Solution:
 
         x = self.__nextState()
         while x != self.input:
-            pS(self.input)
+            # pS(self.input)
             self.input = x
             x = self.__nextState()
-        pS(self.input)
+        # pS(self.input)
             
         tot = 0
         for row in self.input:
