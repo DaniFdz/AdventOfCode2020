@@ -3,37 +3,36 @@ class Solution:
         with open(file, 'r') as f:
             self.input = [[y for y in x] for x in f.read().split("\n")[:-1]]
 
-    
-    def countNeightbours(self, board, x, y) -> int:
-        neightbours = 0
-        for pos in [
-            [-1, -1], [0, -1], [1, -1],
-            [-1,  0],          [1,  0],
-            [-1,  1], [0,  1], [1,  1]
-        ]:
-            i = 1
-            while True:
-                for i in range(len(self.board[0])):
-                    for j in range(self.board):
-                        x_ = x + pos[0]*i
-                        y_ = y + pos[1]*i
-
-                        if 0 <= x_ < len(board[0]) and \
-                            0 <= y_ < len(board):
-                            break
-                        if board[y_][x_] in "#L":
-                            neightbours += 1 if board[y_][x_] == "#" else 0
-                            break
-
-
-        return neightbours
-
     def __nextState(self) -> list:
+        def countNeightbours(board, x, y) -> int:
+            neightbours = 0
+            for direction in [
+                [-1, -1], [0, -1], [1, -1],
+                [-1,  0],          [1,  0],
+                [-1,  1], [0,  1], [1,  1]
+            ]:
+                i = 1
+                while i < max(len(board[0]), len(board)):
+                    x_ = x + direction[0]*i
+                    y_ = y + direction[1]*i
+
+                    if not(0 <= x_ < len(board[0]) and \
+                        0 <= y_ < len(board)):
+                        break
+                    if board[y_][x_] in "#L":
+                        neightbours += 1 if board[y_][x_] == "#" else 0
+                        break
+                    i+=1
+
+
+            return neightbours
+
+
         board = [["" for _ in x] for x in self.input]
 
         for y in range(len(board)):
             for x in range(len(board[y])):
-                cN = self.countNeightbours(self.input, x, y)
+                cN = countNeightbours(self.input, x, y)
 
                 if self.input[y][x] == "#" and cN >= 4:
                     board[y][x] = "L"
@@ -55,10 +54,10 @@ class Solution:
 
         x = self.__nextState()
         while x != self.input:
-            # pS(self.input)
+            pS(self.input)
             self.input = x
             x = self.__nextState()
-        # pS(self.input)
+        pS(self.input)
             
         tot = 0
         for row in self.input:
@@ -67,4 +66,4 @@ class Solution:
         return tot
 
 if __name__=='__main__':
-	print(Solution("day11/p1/input.txt").solve())
+	print(Solution("day11/p2/input.txt").solve())
